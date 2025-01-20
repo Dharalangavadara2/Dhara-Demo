@@ -10,8 +10,21 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-clipboard/clipboard": "^1.16.1",
+    "@react-navigation/native": "^6.1.18",
+    "@react-navigation/native-stack": "^6.9.17",
+    "@reduxjs/toolkit": "^2.5.0",
+    "axios": "^1.7.9",
+    "lodash": "^4.17.21",
     "react": "18.2.0",
-    "react-native": "0.74.0"
+    "react-native": "0.74.0",
+    "react-native-gesture-handler": "^2.22.0",
+    "react-native-otp-inputs": "^7.4.0",
+    "react-native-safe-area-context": "^5.1.0",
+    "react-native-screens": "^4.5.0",
+    "react-native-snackbar": "^2.8.0",
+    "react-navigation": "^5.0.0",
+    "react-redux": "^9.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
