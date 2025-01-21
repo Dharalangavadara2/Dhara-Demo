@@ -8,12 +8,11 @@ const bookSlice = createSlice({
   },
   reducers: {
     addToReadingList: (state, action) => {
+      console.log("state....",state,action);
+      
         
             const book:any = action.payload;
-            const title = book.volumeInfo.title;
-            if (!state.readingList.some((item:any) => item.volumeInfo.title === title)) {
               state.readingList.push(book);
-            }
           
     },
     removeFromReadingList: (state, action) => {

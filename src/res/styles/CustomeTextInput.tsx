@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { FontName } from './FontName';
 import Clickable from './Clickable';
+import ImageButton from '../../screens/ImageButton';
 
 
 interface CustomTextInputProps {
@@ -76,7 +77,8 @@ export default class CustomTextInput extends Component<CustomTextInputProps, Cus
         y: 0,
         width: 0,
         height: 0,
-        error: ""
+        error: "",
+        password:this.props.password
     };
 
     measureView(event: any) {
@@ -96,6 +98,13 @@ export default class CustomTextInput extends Component<CustomTextInputProps, Cus
 
         if (this.props.onRef) {
             this.props.onRef(this.textInput)
+        }
+    }
+    componentDidUpdate(prevProps: Readonly<CustomTextInputProps>, prevState: Readonly<CustomTextInputState>, snapshot?: any): void {
+        if(prevProps.password != this.props?.password){
+            this.setState({password:this.props.password})
+            console.log("datata....",prevProps.password,this.props.password);
+            
         }
     }
 
@@ -187,6 +196,10 @@ export default class CustomTextInput extends Component<CustomTextInputProps, Cus
                                     }}></View>
                                 </Clickable>
                             </View> : null}
+                            {
+                                    console.log("passwordpassword",password)
+                                    
+                                }
                         {editable == undefined || editable == true ?
                             <TextInput
                                 ref={(ref) => this.textInput = ref}
@@ -233,8 +246,9 @@ export default class CustomTextInput extends Component<CustomTextInputProps, Cus
                                     if (onChangeText)
                                         onChangeText(value)
                                 }}
+                               
                                 autoCapitalize={autoCapitalize || (password ? "none" : "words")}
-                                secureTextEntry={password}
+                                secureTextEntry={this.state.password|| password}
                                 style={[styles.textInputStyle, {
                                     height: minHeight, fontSize: fontSize || 17,
                                     color: textColor || '#212121',
@@ -257,15 +271,20 @@ export default class CustomTextInput extends Component<CustomTextInputProps, Cus
                                 {_.isEmpty(value) ? isExtraField ? displayLabel : label : value}
                             </Text>
                         }
+                        {
+                            console.log("rightIconrightIcon",rightIcon)
+                            
+                        }
 
-                        {/* {rightIcon ? <ImageButton onPress={onRightClick} source={rightIcon}
+                        {rightIcon ? <ImageButton onPress={onRightClick} source={rightIcon}
                             style={{
-                                width: ResponsivePixels.size24,
-                                height: ResponsivePixels.size24,
-                                marginStart: ResponsivePixels.size8,
-                                marginEnd: ResponsivePixels.size16,
-                                resizeMode: "contain"
-                            }} /> : null} */}
+                                width: 24,
+                                height: 24,
+                                marginStart: 8,
+                                tintColor:"black"
+                                // marginEnd: 16,
+                                // resizeMode: "contain"
+                            }} /> : null}
                         {rightText ? <Text onPress={onRightClick} style={[{
                             marginHorizontal:8,
                             textAlignVertical: "center"
