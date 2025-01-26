@@ -1,20 +1,38 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Image, StyleSheet, View } from "react-native";
 import { navigate, reset } from "./Navigation";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Utils from "../res/styles/Utils";
+
 export const navigationRef: any = React.createRef();
 
 const Splash = () => {
+  const [token, setToken] = useState(null); 
+
   useEffect(() => {
+    const fetchToken = async () => {
+      try {
+        const storedToken = await AsyncStorage.getItem('token');
+        setToken(storedToken); 
+        console.log("Token:", storedToken); 
+      } catch (error) {
+        console.error("Error fetching token:", error);
+      }
+    };
+
+    fetchToken(); 
+
     const timer = setTimeout(() => {
-      // Use navigationRef to navigate to the new screen
-      reset("ReadingList");
-      console.log("here called.....");
-      
+      if (token && !Utils.isEmpty(token)) {
+        reset('TabMain'); 
+      } else {
+        reset("ReadingList"); 
+        console.log("Navigated to ReadingList");
+      }
     }, 2000);
 
-    // Clean up the timer when the component unmounts
     return () => clearTimeout(timer);
-  }, []); // Empty dependency array to run the effect only once
+  }, [token]);
 
   return (
     <View style={styles.container}>
@@ -33,6 +51,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 });

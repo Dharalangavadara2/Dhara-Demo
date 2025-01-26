@@ -17,9 +17,9 @@ const Login = () => {
   const readingList = useSelector((state) => state.books);
   const dispatch = useDispatch();
 
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState('testpracticaluser001@mailinator.com')
   const [emailError, setEmailError] = useState('')
-  const [password, SETpassword] = useState('')
+  const [password, SETpassword] = useState('Test@123')
   const [passwordError, setpasswordError] = useState('')
   const [showPassword,setShowPassword]= useState(false)
 
@@ -59,12 +59,17 @@ const Login = () => {
       setpasswordError('')
       
       let data = await login(email,password)
-      console.log("data....",data?.data?.user)
-      await AsyncStorage.setItem('user', JSON.stringify(data?.data?.user));
+      console.log("data....",data?.data)
+      
+
+      if(data?.data?.token){
         await AsyncStorage.setItem('token', data?.data?.token);
 
-      if(data?.data?.user){
-        // fetchEventListing()
+        navigate('TabMain')
+        // let list = await fetchEventListing()
+        // if(list?.data?.events)
+        // console.log("here comes lis..",list?.data?.events);
+        
 
 
       }
@@ -104,7 +109,7 @@ const Login = () => {
     }
   };
 
-  const fetchEventListing = async (token) => {
+  const fetchEventListing = async (token:any) => {
     const url = 'http://3.7.81.243/projects/plie-api/public/api/events-listing';
   
     try {
@@ -209,7 +214,7 @@ const Login = () => {
       <Button
         onPress={onSubmitClicked}
         disabled={false}
-        title={'Login'} style={{
+        title={'Sign in'} style={{
           marginTop: 20,
           marginBottom: 5,
           marginHorizontal: 16,
@@ -243,6 +248,35 @@ const Login = () => {
           </Text>
         </Text>
       </View> */}
+      <View style={{flex:1,flexDirection:"row",
+        marginTop:25,
+        justifyContent:"center",alignItems:"center",paddingHorizontal:35}}>
+        <View style={{borderWidth: 0.5,
+    height: 1,flex:1,
+    borderColor: "#4F4F4F",}}></View>
+        <Text style={{
+          textAlign:"center",
+          color:"#4F4F4F",
+          fontFamily:FontName.regular,
+          margin:5
+        }}>or Sign In with:</Text>
+        <View style={{borderWidth: 0.5,
+    height: 1,flex:1,
+    borderColor: "#4F4F4F",}}></View>
+      </View>
+      {/* <View style={{flex:1,flexDirection:"row",marginTop:23}}> */}
+      <View style={{ alignItems: "center", justifyContent: "center", flex: 1,flexDirection:"row",marginTop:25 }}>
+        {/* <View style={{flex:1,borderWidth:0.3,shadowColor:"black",borderColor:"white"}}> */}
+          <Image style={{ width: 50, height: 50,marginRight:13 }} resizeMode={"cover"} source={require('../res/images/Google.png')}>
+          </Image>
+          <Image style={{ width: 50, height: 50,marginRight:13 }} resizeMode={"cover"} source={require('../res/images/iphones.png')}>
+          </Image>
+          <Image style={{ width: 48, height: 48,marginTop:5 }} resizeMode={"cover"} source={require('../res/images/facebooks.png')}>
+          </Image>  
+          {/* </View> */}
+        {/* </View> */}
+
+      </View>
 
 
 
