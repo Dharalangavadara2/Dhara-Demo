@@ -17,9 +17,9 @@ const Login = () => {
   const readingList = useSelector((state) => state.books);
   const dispatch = useDispatch();
 
-  const [email, setEmail] = useState('testpracticaluser001@mailinator.com')
+  const [email, setEmail] = useState('')
   const [emailError, setEmailError] = useState('')
-  const [password, SETpassword] = useState('Test@123')
+  const [password, SETpassword] = useState('')
   const [passwordError, setpasswordError] = useState('')
   const [showPassword,setShowPassword]= useState(false)
 
