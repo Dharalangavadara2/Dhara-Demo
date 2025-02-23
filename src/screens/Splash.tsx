@@ -23,12 +23,8 @@ const Splash = () => {
     fetchToken(); 
 
     const timer = setTimeout(() => {
-      if (token && !Utils.isEmpty(token)) {
         reset('TabMain'); 
-      } else {
-        reset("ReadingList"); 
-        console.log("Navigated to ReadingList");
-      }
+      
     }, 2000);
 
     return () => clearTimeout(timer);

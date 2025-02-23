@@ -14,6 +14,7 @@ import ForgotPassword from './src/screens/ForgotPassword';
 import ResetPassword from './src/screens/ResetPassword';
 import Home from './src/screens/Home';
 import TabMain from './src/screens/TabMain';
+import HomeDatail from './src/screens/HomeDetail';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -32,6 +33,7 @@ const App = () => {
           <Stack.Screen name='ForgotPassword' component={ForgotPassword} />
           <Stack.Screen name='ResetPassword' component={ResetPassword} />
           <Stack.Screen name='TabMain' component={TabMain} />
+          <Stack.Screen name='HomeDetail' component={HomeDatail} />
           {/* <Stack.screens name='Home' component={Home} /> */}
         </Stack.Navigator>
       </NavigationContainer>

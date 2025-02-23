@@ -16,6 +16,8 @@ import ContactListItem from './ContactListItem';
 
 
 const Home = () => {
+  console.log("hwllo");
+  
   const dispatch = useDispatch();
 
  const [data,setData] = useState([])
@@ -31,27 +33,33 @@ const Home = () => {
   
   
 
-  const fetchEventListing = async (token:any) => {
-    const url = 'http://3.7.81.243/projects/plie-api/public/api/events-listing';
-  
-    try {
-      const response = await axios.post(url, {}, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-      // console.log("response...",response.data?.data);
-      setData(response.data?.data?.events)
 
-      // return response.data?.data?.events
-      
+const fetchEventListing = async () => {
+  console.log("Fetching data...");
+
+  try {
+    const response = await axios.get('https://librivox.org/api/feed/audiobooks?format=json&limit=100');
+    
+    // console.log("Result:", response.data);
+
+    // Assuming setData is a state-setting function (React example)
+    setData(response.data?.books);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    // Handle error gracefully, you can set error data or fallback data
+    setData([]);
+  }
+};
+const redirectDetails = (data:any) => {
+  console.log("yes data comes ....",data);
+  if(data){
+    navigate('HomeDetail',{data})
+  }
   
-       // Handle success
-    } catch (error) {
-      console.error('Event Listing error:', error);
-      throw error; // Handle error
-    }
-  };
+
+}
+
+  
   
 
   
@@ -61,37 +69,7 @@ const Home = () => {
 
   return (
     <ScrollView style={[styles.container,{padding:10,backgroundColor:"#F2F2F2"}]}>
-      <View
-                style={{
-                  // marginStart: 13,
-                  // width: 250,
-                  borderWidth:1,
-                  justifyContent:"center",
-                  // padding:15,
-                  height:100,
-                  paddingHorizontal:30
-                  // flex:0.5,
-                  // alignItems:"center"
-                }}
-              >
-                
-                <Text style={{
-                   fontFamily: FontName.semibold,
-                   fontSize: 20,
-                   color: Colors.ButtonColor,
-                }}>
-                  {'Hello Renzo!'}
-                </Text>
-                <Text style={{
-                  fontFamily: FontName.regular,
-                  fontSize: 16,
-                  marginTop: 4,
-                  color: Colors.TextColor,
-                }}>
-                  {'Are you ready to dance?'}
-                </Text>
-              </View>
-
+     
               <View>
 
               <FlatList
@@ -103,7 +81,9 @@ const Home = () => {
                                 renderItem={({ item, index }) => {
                                     
                                     return (
-                                        <ContactListItem  item={item} />)
+                                        <ContactListItem                 
+                                        onPress={(data: any) => redirectDetails(data)}
+                                        item={item} />)
                                 }}
                                 keyExtractor={(_item, index) => "key" + index}
                             />
